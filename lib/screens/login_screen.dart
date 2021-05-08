@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jobs/controllers/login_controller.dart';
 import 'package:jobs/models/user_model.dart';
+import 'package:jobs/screens/dashboard.dart';
 import 'package:jobs/screens/signup_screen.dart';
 import 'package:jobs/utility/app_variables.dart';
 import 'package:jobs/utility/constants.dart';
@@ -122,7 +123,8 @@ class LoginScreen extends StatelessWidget {
               _scaffoldKey.currentState.showSnackBar(
                   Utility.getSnackBar(loginSuccess, isError: false));
               Future.delayed(Duration(seconds: 2), () {
-                // Utility.goBack(context);
+                Utility.navigateTo(
+                    context: context, nextPageName: DashboardScreen());
               });
             }
           });

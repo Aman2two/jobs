@@ -42,11 +42,13 @@ const String userIdCreatedMsg= "User created with id";
 const String loginText= "Login";
 const String signText= 'Sign Up';
 const String loginSuccess= 'Login Success';
+const String dashboardScreenHeader= 'Dashboard';
 
 // asset paths
 
 const String userBg="lib/assets/user_type_bg.jpg";
 const String loginBg="lib/assets/login.jpg";
+const String dashboardBg="lib/assets/dashboardbg.jpg";
 
 
 //errors
