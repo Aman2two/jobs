@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'constants.dart';
+
 class Utility {
   static navigateTo(
       {@required BuildContext context,
@@ -13,7 +15,7 @@ class Utility {
             MaterialPageRoute(builder: (BuildContext context) => nextPageName));
   }
 
-  static goBack(BuildContext context){
+  static goBack(BuildContext context) {
     Navigator.pop(context);
   }
 
@@ -46,4 +48,20 @@ class Utility {
       backgroundColor: isError ? Colors.red[800] : Colors.black,
     );
   }
+}
+
+Widget defaultLoader(BuildContext context) {
+  return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Align(
+          child: CircularProgressIndicator(),
+          alignment: Alignment.center,
+        ),
+        Text(
+          defaultDialogMsg,
+          style: Theme.of(context).textTheme.headline6,
+        )
+      ]);
 }

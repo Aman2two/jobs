@@ -20,6 +20,19 @@ class ApiHandler {
 
   }
 
+  static Future<Map<dynamic,dynamic>> login(Map<String,dynamic> data) async{
+    try {
+      print(data.toString());
+      Response response = await dio.post(
+          "$baseUrl$loginApi", data: jsonEncode(data));
+      print(response);
+      return response.data;
+    }catch(e){
+      return handleError(e);
+    }
+
+  }
+
   static handleError(e){
     if(e.type==DioErrorType.DEFAULT){
       return {

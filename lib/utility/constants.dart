@@ -3,7 +3,7 @@
 
 // api paths
 const String baseUrl="https://jobs-api.squareboat.info/api/v1/";
-const String login="auth/login";
+const String loginApi="auth/login";
 const String register="auth/register";
 const String resetPassword="auth/resetpassword";
 const String jobs="jobs/";
@@ -39,6 +39,9 @@ const String errors= "errors";
 const String message= "message";
 const String data= "data";
 const String userIdCreatedMsg= "User created with id";
+const String loginText= "Login";
+const String signText= 'Sign Up';
+const String loginSuccess= 'Login Success';
 
 // asset paths
 

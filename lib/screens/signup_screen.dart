@@ -47,19 +47,7 @@ class SignUpScreen extends StatelessWidget {
               ),
             ),
             Provider.of<AppVariables>(context, listen: true).loaderShowing
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                        Align(
-                          child: CircularProgressIndicator(),
-                          alignment: Alignment.center,
-                        ),
-                        Text(
-                          defaultDialogMsg,
-                          style: Theme.of(context).textTheme.headline6,
-                        )
-                      ])
+                ? defaultLoader(context)
                 : SizedBox()
           ],
         ),
@@ -149,8 +137,7 @@ class SignUpScreen extends StatelessWidget {
       onPressed: () {
         print(_formKey.currentState.validate());
         if (_formKey.currentState.validate()) {
-          Provider.of<AppVariables>(context, listen: false).loaderShowing =
-              true;
+          Provider.of<AppVariables>(context, listen: false).loaderShowing = true;
 
           _signUpController.submitRequest(userRole).then((value) {
             Provider.of<AppVariables>(context, listen: false).loaderShowing =
