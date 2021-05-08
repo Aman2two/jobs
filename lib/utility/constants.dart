@@ -24,10 +24,18 @@ const String userTypeRecruiter="Recruiter";
 const String userTypeCandidate="Candidate";
 const String proceedText="Proceed";
 const String userTypeHeadText="Please Select User type";
+const String loginAppBarTitle="Login Screen";
 
 // assset paths
 
 const String userBg="lib/assets/user_type_bg.jpg";
+const String loginBg="lib/assets/login.jpg";
+
+
+//errors
+const String enterUserName='Please enter username';
+const String enterPassword='Please enter password';
+
 
 
 
