@@ -38,7 +38,7 @@ class SignUpScreen extends StatelessWidget {
                       loginPassword(context),
                       Spacer(),
                       signUpText(
-                          Provider.of<AppVariables>(context, listen: false)
+                          Provider.of<DataProvider>(context, listen: false)
                               .userType,
                           context),
                     ],
@@ -46,7 +46,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Provider.of<AppVariables>(context, listen: true).loaderShowing
+            Provider.of<DataProvider>(context, listen: true).loaderShowing
                 ? defaultLoader(context)
                 : SizedBox()
           ],
@@ -137,10 +137,10 @@ class SignUpScreen extends StatelessWidget {
       onPressed: () {
         print(_formKey.currentState.validate());
         if (_formKey.currentState.validate()) {
-          Provider.of<AppVariables>(context, listen: false).loaderShowing = true;
+          Provider.of<DataProvider>(context, listen: false).loaderShowing = true;
 
           _signUpController.submitRequest(userRole).then((value) {
-            Provider.of<AppVariables>(context, listen: false).loaderShowing =
+            Provider.of<DataProvider>(context, listen: false).loaderShowing =
                 false;
             if (!value[success]) {
               List<dynamic> errorList = (value.containsKey(errors))

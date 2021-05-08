@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jobs/controllers/login_controller.dart';
+import 'package:jobs/models/user_model.dart';
 import 'package:jobs/screens/signup_screen.dart';
 import 'package:jobs/utility/app_variables.dart';
 import 'package:jobs/utility/constants.dart';
@@ -43,7 +44,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-          Provider.of<AppVariables>(context, listen: true).loaderShowing
+          Provider.of<DataProvider>(context, listen: true).loaderShowing
               ? defaultLoader(context)
               : SizedBox()
         ]),
@@ -102,10 +103,10 @@ class LoginScreen extends StatelessWidget {
       onPressed: () {
         print(_formKey.currentState.validate());
         if (_formKey.currentState.validate()) {
-          Provider.of<AppVariables>(context, listen: false).loaderShowing =
+          Provider.of<DataProvider>(context, listen: false).loaderShowing =
               true;
           _loginController.loginUser().then((value) {
-            Provider.of<AppVariables>(context, listen: false).loaderShowing =
+            Provider.of<DataProvider>(context, listen: false).loaderShowing =
                 false;
 
             if (!value[success]) {
@@ -116,7 +117,8 @@ class LoginScreen extends StatelessWidget {
               _scaffoldKey.currentState.showSnackBar(
                   Utility.getSnackBar(errorString, isError: true));
             } else {
-              value[data];
+              User user = User.fromJson(value[data]);
+              Provider.of<DataProvider>(context, listen: false).user = user;
               _scaffoldKey.currentState.showSnackBar(
                   Utility.getSnackBar(loginSuccess, isError: false));
               Future.delayed(Duration(seconds: 2), () {

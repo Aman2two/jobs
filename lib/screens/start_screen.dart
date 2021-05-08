@@ -37,14 +37,14 @@ class UserType extends StatelessWidget {
   }
 
   Widget userTypeSelector(BuildContext context) {
-    return Consumer<AppVariables>(builder: (context, appVariable, child) {
+    return Consumer<DataProvider>(builder: (context, appVariable, child) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Radio(
               value: 1,
               groupValue:
-                  Provider.of<AppVariables>(context, listen: false).userType,
+                  Provider.of<DataProvider>(context, listen: false).userType,
               onChanged: (value) => changeValue(context, value)),
           GestureDetector(
               onTap: () {
@@ -60,7 +60,7 @@ class UserType extends StatelessWidget {
           Radio(
               value: 0,
               groupValue:
-                  Provider.of<AppVariables>(context, listen: false).userType,
+                  Provider.of<DataProvider>(context, listen: false).userType,
               onChanged: (value) => changeValue(context, value)),
           GestureDetector(
               onTap: () {
@@ -85,6 +85,6 @@ class UserType extends StatelessWidget {
   }
 
   void changeValue(BuildContext context, int value) {
-    Provider.of<AppVariables>(context, listen: false).userType = value;
+    Provider.of<DataProvider>(context, listen: false).userType = value;
   }
 }

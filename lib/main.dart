@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobs/screens/usertype.dart';
+import 'package:jobs/screens/start_screen.dart';
 import 'package:jobs/utility/app_variables.dart';
 import 'package:jobs/utility/constants.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AppVariables>(create: (_) => AppVariables())
+        ChangeNotifierProvider<DataProvider>(create: (_) => DataProvider())
       ],
       child: MaterialApp(
         title: appName,
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           )),
 
           textTheme: TextTheme(
-              subtitle1: TextStyle(color: Colors.black87,fontSize: 18.0),
+              subtitle1: TextStyle(color: Colors.deepPurple,fontSize: 18.0,fontWeight: FontWeight.w600),
               button: TextStyle(color: Colors.white, fontSize: 18.0),
               headline6: TextStyle(color: Colors.black87, fontSize: 20.0)),
 
