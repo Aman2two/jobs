@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jobs/api/apihandler.dart';
 import 'package:jobs/screens/signup_screen.dart';
 import 'package:jobs/utility/constants.dart';
 import 'package:jobs/utility/utility.dart';

@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 
 class AppVariables extends ChangeNotifier {
-  int _userType = 0;
+  int _userType = 1;
   bool _loaderShowing=false;
 
   bool get loaderShowing => _loaderShowing;

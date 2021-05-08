@@ -9,6 +9,7 @@ class ApiHandler {
 
   static Future<Map<dynamic,dynamic>> signUp(Map<String,dynamic> data) async{
     try {
+      print(data.toString());
       Response response = await dio.post(
           "$baseUrl$register", data: jsonEncode(data));
       print(response);

@@ -89,7 +89,6 @@ class SignUpScreen extends StatelessWidget {
               TextFormField(
                 decoration: InputDecoration(hintText: email),
                 maxLines: 1,
-                autofocus: true,
                 style: Theme.of(context).textTheme.subtitle1,
                 controller: _signUpController.tecEmail,
                 validator: (value) {
@@ -117,7 +116,6 @@ class SignUpScreen extends StatelessWidget {
               TextFormField(
                 decoration: InputDecoration(hintText: confirmPassword),
                 maxLines: 1,
-                autofocus: true,
                 style: Theme.of(context).textTheme.subtitle1,
                 controller: _signUpController.tecConfirmPassword,
                 obscureText: true,
@@ -132,7 +130,6 @@ class SignUpScreen extends StatelessWidget {
               TextFormField(
                 decoration: InputDecoration(hintText: skillsText),
                 maxLines: 1,
-                autofocus: true,
                 style: Theme.of(context).textTheme.subtitle1,
                 controller: _signUpController.tecSkills,
                 validator: (value) {
@@ -167,12 +164,10 @@ class SignUpScreen extends StatelessWidget {
                   Utility.getSnackBar(errorString, isError: true));
             } else {
               String id = value[data][email.toLowerCase()];
-              _scaffoldKey.currentState.showSnackBar(Utility.getSnackBar(
-                  "$userIdCreatedMsg $id",
-                  isError: false));
+              _scaffoldKey.currentState.showSnackBar(
+                  Utility.getSnackBar("$userIdCreatedMsg $id", isError: false));
               Future.delayed(Duration(seconds: 2), () {
-                Utility.navigateTo(
-                    context: context, nextPageName: LoginScreen());
+                Utility.goBack(context);
               });
             }
           });

@@ -3,9 +3,18 @@ import 'package:flutter/material.dart';
 
 class Utility {
   static navigateTo(
-      {@required BuildContext context, @required Widget nextPageName}) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => nextPageName));
+      {@required BuildContext context,
+      @required Widget nextPageName,
+      bool replace = false}) {
+    replace
+        ? Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (BuildContext context) => nextPageName))
+        : Navigator.push(context,
+            MaterialPageRoute(builder: (BuildContext context) => nextPageName));
+  }
+
+  static goBack(BuildContext context){
+    Navigator.pop(context);
   }
 
   static bool isValidEmail(String data) {
@@ -29,7 +38,6 @@ class Utility {
   static SnackBar getSnackBar(String text, {bool isError = false}) {
     return SnackBar(
       content: Container(
-        height: 50.0,
         child: Text(
           text,
           style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),

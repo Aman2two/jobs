@@ -42,7 +42,7 @@ class UserType extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Radio(
-              value: 0,
+              value: 1,
               groupValue:
                   Provider.of<AppVariables>(context, listen: false).userType,
               onChanged: (value) => changeValue(context, value)),
@@ -58,7 +58,7 @@ class UserType extends StatelessWidget {
             width: 10,
           ),
           Radio(
-              value: 1,
+              value: 0,
               groupValue:
                   Provider.of<AppVariables>(context, listen: false).userType,
               onChanged: (value) => changeValue(context, value)),
