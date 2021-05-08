@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jobs/api/apihandler.dart';
+import 'package:jobs/screens/signup_screen.dart';
 import 'package:jobs/utility/constants.dart';
+import 'package:jobs/utility/utility.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController tecUserName = new TextEditingController();
@@ -29,7 +32,7 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   loginPassword(context),
                   Spacer(),
-                  signUpText(),
+                  signUpText(context),
                   submitText(),
                 ],
               ),
@@ -77,10 +80,10 @@ class LoginScreen extends StatelessWidget {
         ));
   }
 
-  Widget signUpText() {
+  Widget signUpText(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-
+          Utility.navigateTo(context: context, nextPageName: SignUpScreen());
       },
       child: Text('Sign Up'),
     );

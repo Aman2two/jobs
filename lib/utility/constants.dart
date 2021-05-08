@@ -4,6 +4,7 @@
 // api paths
 const String baseUrl="https://jobs-api.squareboat.info/api/v1/";
 const String login="auth/login";
+const String register="auth/register";
 const String resetPassword="auth/resetpassword";
 const String jobs="jobs/";
 const String applyToJobs="candidates/jobs";
