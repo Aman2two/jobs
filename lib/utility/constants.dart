@@ -20,6 +20,7 @@ const String getOneJobCanditates="recruiters/jobs/";
 // value constants
 
 const String userTypeScreenHeader="User Select Screen";
+const String createJobHeader="Create Job";
 const String appName="Jobs";
 const String userTypeRecruiter="Recruiter";
 const String userTypeCandidate="Candidate";
@@ -33,6 +34,9 @@ const String confirmPassword="Confirm Password";
 const String password="Password";
 const String email="Email";
 const String name="Name";
+const String title="Title";
+const String description="Description";
+const String location="Location";
 const String defaultDialogMsg= "Please wait.....";
 const String success= "success";
 const String errors= "errors";
@@ -42,7 +46,9 @@ const String userIdCreatedMsg= "User created with id";
 const String loginText= "Login";
 const String signText= 'Sign Up';
 const String loginSuccess= 'Login Success';
+const String createJobSuccess= 'Job Created Successfully';
 const String dashboardScreenHeader= 'Dashboard';
+const String createJob= 'Create Job';
 
 // asset paths
 
@@ -58,6 +64,9 @@ const String enterName='Please enter name';
 const String enterEmail='Please enter email';
 const String enterConfirmPassword='Please enter confirm password';
 const String enterSkills='Please enter skills';
+const String enterTitle='Please enter title';
+const String enterDescription='Please enter description';
+const String enterLocation='Please enter location';
 
 //api keys
 
