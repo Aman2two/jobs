@@ -53,7 +53,6 @@ class LoginScreen extends StatelessWidget {
               TextFormField(
                 decoration: InputDecoration(hintText: "Username"),
                 maxLines: 1,
-                autofocus: true,
                 style: Theme.of(context).textTheme.subtitle1,
                 controller: tecUserName,
                 validator: (value) {

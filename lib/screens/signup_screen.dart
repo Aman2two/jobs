@@ -1,47 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jobs/api/apihandler.dart';
+import 'package:jobs/controllers/signup_controller.dart';
+import 'package:jobs/screens/login_screen.dart';
 import 'package:jobs/utility/app_variables.dart';
 import 'package:jobs/utility/constants.dart';
+import 'package:jobs/utility/utility.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatelessWidget {
-  final TextEditingController tecEmail = new TextEditingController();
-  final TextEditingController tecPassword = new TextEditingController();
-  final TextEditingController tecConfirmPassword = new TextEditingController();
-  final TextEditingController tecName = new TextEditingController();
-  final TextEditingController tecSkills = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final SignUpController _signUpController = new SignUpController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text(loginAppBarTitle),
+        title: Text(signAppBarTitle),
       ),
       body: Center(
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(loginBg), fit: BoxFit.fitHeight),
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Card(
-              elevation: 10.0,
-              color: Colors.white54,
-              child: Column(
-                children: [
-                  loginPassword(context),
-                  Spacer(),
-                  signUpText(Provider.of<AppVariables>(context, listen: false)
-                      .userType),
-                  submitText(),
-                ],
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(loginBg), fit: BoxFit.fitHeight),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Card(
+                  elevation: 10.0,
+                  color: Colors.white54,
+                  child: Column(
+                    children: [
+                      loginPassword(context),
+                      Spacer(),
+                      signUpText(
+                          Provider.of<AppVariables>(context, listen: false)
+                              .userType,
+                          context),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
+            Provider.of<AppVariables>(context, listen: true).loaderShowing
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                        Align(
+                          child: CircularProgressIndicator(),
+                          alignment: Alignment.center,
+                        ),
+                        Text(
+                          defaultDialogMsg,
+                          style: Theme.of(context).textTheme.headline6,
+                        )
+                      ])
+                : SizedBox()
+          ],
         ),
       ),
     );
@@ -55,65 +75,69 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
-                decoration: InputDecoration(hintText: "Email"),
+                decoration: InputDecoration(hintText: name),
                 maxLines: 1,
-                autofocus: true,
-                style: Theme.of(context).textTheme.subtitle1,
-                controller: tecEmail,
+                controller: _signUpController.tecName,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter email';
+                    return enterName;
                   }
                   return null;
                 },
               ),
               SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(hintText: "Password"),
-                maxLines: 1,
-                controller: tecPassword,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter password';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(hintText: "Confirm Password"),
+                decoration: InputDecoration(hintText: email),
                 maxLines: 1,
                 autofocus: true,
                 style: Theme.of(context).textTheme.subtitle1,
-                controller: tecConfirmPassword,
+                controller: _signUpController.tecEmail,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter confirm password';
+                  if (value == null ||
+                      value.isEmpty ||
+                      !Utility.isValidEmail(_signUpController.tecEmail.text)) {
+                    return enterEmail;
                   }
                   return null;
                 },
               ),
               SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(hintText: "Name"),
+                decoration: InputDecoration(hintText: password),
                 maxLines: 1,
-                controller: tecName,
+                controller: _signUpController.tecPassword,
+                obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter name';
+                    return enterPassword;
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(hintText: confirmPassword),
+                maxLines: 1,
+                autofocus: true,
+                style: Theme.of(context).textTheme.subtitle1,
+                controller: _signUpController.tecConfirmPassword,
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return enterConfirmPassword;
                   }
                   return null;
                 },
               ),
               SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(hintText: "Skills"),
+                decoration: InputDecoration(hintText: skillsText),
                 maxLines: 1,
                 autofocus: true,
                 style: Theme.of(context).textTheme.subtitle1,
-                controller: tecEmail,
+                controller: _signUpController.tecSkills,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter skills';
+                    return enterSkills;
                   }
                   return null;
                 },
@@ -123,33 +147,38 @@ class SignUpScreen extends StatelessWidget {
         ));
   }
 
-  Widget signUpText(int userRole) {
+  Widget signUpText(int userRole, BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         print(_formKey.currentState.validate());
         if (_formKey.currentState.validate()) {
-          ApiHandler.signUp({
-            "email": tecEmail,
-            "userRole": userRole,
-            "password": tecPassword,
-            "confirmPassword": tecConfirmPassword,
-            "name": tecName,
-            "skills": tecSkills
+          Provider.of<AppVariables>(context, listen: false).loaderShowing =
+              true;
+
+          _signUpController.submitRequest(userRole).then((value) {
+            Provider.of<AppVariables>(context, listen: false).loaderShowing =
+                false;
+            if (!value[success]) {
+              List<dynamic> errorList = (value.containsKey(errors))
+                  ? value[errors]
+                  : [value[message]];
+              String errorString = Utility.parseErrors(errorList);
+              _scaffoldKey.currentState.showSnackBar(
+                  Utility.getSnackBar(errorString, isError: true));
+            } else {
+              String id = value[data][email.toLowerCase()];
+              _scaffoldKey.currentState.showSnackBar(Utility.getSnackBar(
+                  "$userIdCreatedMsg $id",
+                  isError: false));
+              Future.delayed(Duration(seconds: 2), () {
+                Utility.navigateTo(
+                    context: context, nextPageName: LoginScreen());
+              });
+            }
           });
         }
       },
-      child: Text('Sign Up'),
-    );
-  }
-
-  Widget submitText() {
-    return ElevatedButton(
-      onPressed: () {
-        print(_formKey.currentState.validate());
-        if (_formKey.currentState.validate()) {
-        } else {}
-      },
-      child: Text('Login'),
+      child: Text(buttonProceed),
     );
   }
 }
