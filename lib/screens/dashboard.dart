@@ -18,13 +18,14 @@ class DashboardScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(dashboardScreenHeader),
         actions: [
-          InkWell(child: Padding(padding: EdgeInsets.only(right: 10.0),
-          child:Icon(Icons.logout)),
-          onTap: (){
-            Utility.logoutFromApp(context);
-          },
+          InkWell(
+            child: Padding(
+                padding: EdgeInsets.only(right: 10.0),
+                child: Icon(Icons.logout)),
+            onTap: () {
+              Utility.logoutFromApp(context);
+            },
           )
-
         ],
       ),
       body: WillPopScope(
@@ -82,6 +83,13 @@ class DashboardScreen extends StatelessWidget {
               email,
               style: Theme.of(context).textTheme.headline6,
             ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Provider.of<DataProvider>(context).user.userRole == 0
+                ? Text(Provider.of<DataProvider>(context).user.skills,
+                    style: Theme.of(context).textTheme.headline6)
+                : SizedBox(),
             SizedBox(
               height: 10.0,
             ),
