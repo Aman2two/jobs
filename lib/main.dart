@@ -31,14 +31,19 @@ class MyApp extends StatelessWidget {
                 fontSize: 21.0,
                 fontWeight: FontWeight.w600),
           )),
-
           textTheme: TextTheme(
-              subtitle1: TextStyle(color: Colors.deepPurpleAccent,fontSize: 18.0,fontWeight: FontWeight.w600),
+              subtitle1: TextStyle(
+                  color: Colors.deepPurpleAccent,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600),
               button: TextStyle(color: Colors.white, fontSize: 18.0),
-              headline4: TextStyle(color: Colors.deepPurpleAccent, fontSize: 23.0),
+              headline4:
+                  TextStyle(color: Colors.deepPurpleAccent, fontSize: 23.0),
+              headline2: TextStyle(
+                color: Colors.white,
+                fontSize: 20.0,
+              ),
               headline6: TextStyle(color: Colors.black87, fontSize: 20.0)),
-
-
           buttonTheme: ButtonThemeData(
               minWidth: 120.0,
               height: 40.0,

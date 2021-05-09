@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:jobs/api/apihandler.dart';
+import 'package:jobs/models/job.dart';
 import 'package:jobs/utility/constants.dart';
 
 class JobsController {
@@ -28,6 +29,34 @@ class JobsController {
       'Authorization': token.trim()
     });
   }
+
+  List<Job> jobsList(List<dynamic> data)=>
+    data.map((e) =>Job.fromJson(e)).toList();
+
+
+  List<dynamic> dummyData=[
+    {
+      "title": "C Developer",
+      "description": "job description",
+      "location": "Delhi"
+    },
+    {
+      "title": "Java Developer",
+      "description": "job description",
+      "location": "Gurgaon"
+    },
+    {
+      "title": "C++ Developer",
+      "description": "job description",
+      "location": "Pune"
+    },
+    {
+      "title": "Dart Developer",
+      "description": "job description",
+      "location": "Banglore"
+    },
+  ];
+
 
 
 }

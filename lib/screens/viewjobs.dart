@@ -57,14 +57,20 @@ class ViewJobCandidates extends StatelessWidget {
           return defaultLoader(context);
         } else {
           var value = snapShot.data;
-          if (!value[success]) {
-            List<dynamic> errorList =
-                (value.containsKey(errors)) ? value[errors] : [value[message]];
-            String errorString = Utility.parseErrors(errorList);
-            return noDataFound(context);
-          } else {
-            return SizedBox();
-          }
+          // if (!value[success]) {
+          //   List<dynamic> errorList =
+          //       (value.containsKey(errors)) ? value[errors] : [value[message]];
+          //   String errorString = Utility.parseErrors(errorList);
+          //   return noDataFound(context);
+          // } else {
+          // value[data];
+          List<Job> list = _jobsController.jobsList(_jobsController.dummyData);
+          return ListView.builder(
+              itemCount: list.length,
+              itemBuilder: (context, index) {
+                return singleJobCard(list[index], context);
+              });
+          // }
         }
       },
       future: userRole == 1
@@ -75,24 +81,28 @@ class ViewJobCandidates extends StatelessWidget {
 
   Widget singleJobCard(Job jobObj, BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(7.0),
+      color: Colors.orangeAccent,
+      margin: EdgeInsets.all(10.0),
       elevation: 4.0,
-      child: Column(children: [
-        Text(
-          jobObj.title,
-          style: Theme.of(context).textTheme.headline6,
-        ),
-        SizedBox(height: 5.0),
-        Text(
-          jobObj.description,
-          style: Theme.of(context).textTheme.subtitle2,
-        ),
-        SizedBox(height: 5.0),
-        Text(
-          jobObj.location,
-          style: Theme.of(context).textTheme.headline6,
-        ),
-      ]),
+      child: Padding(
+        padding:  EdgeInsets.all(5.0),
+        child: Column(children: [
+          Text(
+            jobObj.title,
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          SizedBox(height: 5.0),
+          Text(
+            jobObj.description,
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          SizedBox(height: 5.0),
+          Text(
+            " Location: ${jobObj.location}",
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+        ]),
+      ),
     );
   }
 
