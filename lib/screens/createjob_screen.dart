@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jobs/controllers/createjob_controller.dart';
+import 'package:jobs/controllers/jobs_controller.dart';
 import 'package:jobs/utility/app_variables.dart';
 import 'package:jobs/utility/constants.dart';
 import 'package:jobs/utility/utility.dart';
@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class CreateJobScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  final CreateJobController _createJobController = new CreateJobController();
+  final JobsController _createJobController = new JobsController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class CreateJobScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(loginBg), fit: BoxFit.fitHeight),
+                  image: AssetImage(jobsBg), fit: BoxFit.fitWidth),
             ),
             child: Padding(
               padding: EdgeInsets.all(15.0),
@@ -106,7 +106,8 @@ class CreateJobScreen extends StatelessWidget {
         if (_formKey.currentState.validate()) {
           Provider.of<DataProvider>(context, listen: false).loaderShowing =
               true;
-          _createJobController.createJob().then((value) {
+          String token=Provider.of<DataProvider>(context, listen: false).user.token;
+          _createJobController.createJob(token).then((value) {
             Provider.of<DataProvider>(context, listen: false).loaderShowing =
                 false;
 

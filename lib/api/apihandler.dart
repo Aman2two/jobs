@@ -1,60 +1,46 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:jobs/utility/constants.dart';
-import 'package:jobs/utility/utility.dart';
+import 'package:flutter/cupertino.dart';
 
 class ApiHandler {
   static var dio = Dio();
 
-  static Future<Map<dynamic,dynamic>> signUp(Map<String,dynamic> data) async{
+  static Future<Map<dynamic, dynamic>> callPostApi(
+      {@required String url,
+      @required Map<String, dynamic> data,
+      Map<String, dynamic> headers}) async {
     try {
       print(data.toString());
-      Response response = await dio.post(
-          "$baseUrl$register", data: jsonEncode(data));
+      if (headers != null) dio.options.headers.addAll(headers);
+      Response response = await dio.post(url, data: jsonEncode(data));
       print(response);
       return response.data;
-    }catch(e){
-     return handleError(e);
-    }
-
-  }
-
-  static Future<Map<dynamic,dynamic>> login(Map<String,dynamic> data) async{
-    try {
-      print(data.toString());
-      Response response = await dio.post(
-          "$baseUrl$loginApi", data: jsonEncode(data));
-      print(response);
-      return response.data;
-    }catch(e){
+    } catch (e) {
       return handleError(e);
     }
-
   }
 
-  static Future<Map<dynamic,dynamic>> createJob(Map<String,dynamic> data) async{
+  static Future<Map<dynamic, dynamic>> callGetApi(
+      {@required String url,
+      Map<String, dynamic> data,
+      Map<String, dynamic> headers}) async {
     try {
       print(data.toString());
-      Response response = await dio.post(
-          "$baseUrl$jobs", data: jsonEncode(data));
+      dio.options.headers.addAll(headers);
+      Response response = await dio.get(url, queryParameters: data);
       print(response);
       return response.data;
-    }catch(e){
+    } catch (e) {
       return handleError(e);
     }
-
   }
 
-  static handleError(e){
-    if(e.type==DioErrorType.DEFAULT){
-      return {
-        'success':false,
-        'message':"Error Connecting to server"
-      };
-    }else {
+  static handleError(e) {
+    if (e.type == DioErrorType.DEFAULT) {
+      return {'success': false, 'message': "Error Connecting to server"};
+    } else {
       return e.response.data;
     }
-}
-
+  }
 }

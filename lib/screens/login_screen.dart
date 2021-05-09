@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(loginBg), fit: BoxFit.fitHeight),
+                  image: AssetImage(loginBg), fit: BoxFit.fitWidth),
             ),
             child: Padding(
               padding: EdgeInsets.all(15.0),

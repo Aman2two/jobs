@@ -12,7 +12,7 @@ class UserType extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage(userBg), fit: BoxFit.fitHeight),
+        image: DecorationImage(image: AssetImage(jobsBg), fit: BoxFit.fitWidth),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

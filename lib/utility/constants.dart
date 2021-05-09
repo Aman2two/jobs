@@ -21,6 +21,7 @@ const String getOneJobCanditates="recruiters/jobs/";
 
 const String userTypeScreenHeader="User Select Screen";
 const String createJobHeader="Create Job";
+const String viewJobHeader="View Jobs";
 const String appName="Jobs";
 const String userTypeRecruiter="Recruiter";
 const String userTypeCandidate="Candidate";
@@ -49,12 +50,15 @@ const String loginSuccess= 'Login Success';
 const String createJobSuccess= 'Job Created Successfully';
 const String dashboardScreenHeader= 'Dashboard';
 const String createJob= 'Create Job';
+const String searchJobsHeader= 'Search Job';
 
 // asset paths
 
 const String userBg="lib/assets/user_type_bg.jpg";
 const String loginBg="lib/assets/login.jpg";
 const String dashboardBg="lib/assets/dashboardbg.jpg";
+const String searchBg="lib/assets/searchbg.jpg";
+const String jobsBg="lib/assets/jobsbg.jpg";
 
 
 //errors

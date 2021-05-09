@@ -2,6 +2,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:jobs/api/apihandler.dart';
+import 'package:jobs/utility/constants.dart';
 
 class SignUpController{
   final TextEditingController tecEmail = new TextEditingController();
@@ -11,7 +12,7 @@ class SignUpController{
   final TextEditingController tecSkills = new TextEditingController();
 
   Future<Map> submitRequest(int userRole) async{
-    return await ApiHandler.signUp({
+    return await ApiHandler.callPostApi(url:"$baseUrl$register",data:{
       "email": tecEmail.text,
       "userRole": userRole,
       "password": tecPassword.text,

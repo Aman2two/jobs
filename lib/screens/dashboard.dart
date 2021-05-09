@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jobs/screens/createjob_screen.dart';
+import 'package:jobs/screens/viewjob_candidates.dart';
 import 'package:jobs/utility/app_variables.dart';
 import 'package:jobs/utility/constants.dart';
 import 'package:jobs/utility/utility.dart';
@@ -23,7 +24,7 @@ class DashboardScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(dashboardBg), fit: BoxFit.fitHeight),
+                  image: AssetImage(dashboardBg), fit: BoxFit.fitWidth),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,7 +32,7 @@ class DashboardScreen extends StatelessWidget {
                 userLayout(context),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [addJob(context), viewJobCandidates()],
+                  children: [addJob(context), viewJobCandidates(context)],
                 )
               ],
             ),
@@ -85,9 +86,11 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget viewJobCandidates() {
+  Widget viewJobCandidates(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        Utility.navigateTo(context: context, nextPageName: ViewJobCandidates());
+      },
       child: Text('View Job Candidates'),
     );
   }
