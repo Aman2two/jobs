@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jobs/screens/createjob_screen.dart';
-import 'package:jobs/screens/viewjob_candidates.dart';
+import 'package:jobs/screens/viewjobs.dart';
 import 'package:jobs/utility/app_variables.dart';
 import 'package:jobs/utility/constants.dart';
 import 'package:jobs/utility/utility.dart';
