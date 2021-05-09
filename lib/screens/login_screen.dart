@@ -39,10 +39,12 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     loginPassword(context),
-                    forgotPassword(context),
                     Spacer(),
                     signUpText(context),
                     submitText(context),
+                    SizedBox(height: 10,),
+                    forgotPassword(context),
+                    SizedBox(height: 10,)
                   ],
                 ),
               ),
@@ -57,9 +59,9 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget forgotPassword(BuildContext context) {
-    return ElevatedButton(
-      child: Text("Forgot password"),
-      onPressed: () {
+    return InkWell(
+      child: Text("forgot password",style: Theme.of(context).textTheme.subtitle2,),
+      onTap: () {
         _loginController.getResetToken().then((value) {
           if (!value[success]) {
             List<dynamic> errorList =
