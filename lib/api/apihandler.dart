@@ -27,7 +27,7 @@ class ApiHandler {
       Map<String, dynamic> headers}) async {
     try {
       print(data.toString());
-      dio.options.headers.addAll(headers);
+      if (headers != null)   dio.options.headers.addAll(headers);
       Response response = await dio.get(Uri.decodeFull(url), queryParameters: data);
       print(response);
       return response.data;

@@ -11,4 +11,9 @@ class LoginController {
         url: "$baseUrl$loginApi",
         data: {'email': tecUserName.text, 'password': tecPassword.text});
   }
+
+  Future<Map> getResetToken() async {
+    return await ApiHandler.callGetApi(
+        url: "$baseUrl$getResetPwdToken", data: {'email': tecUserName.text});
+  }
 }

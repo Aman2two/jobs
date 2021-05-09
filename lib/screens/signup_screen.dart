@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jobs/controllers/signup_controller.dart';
-import 'package:jobs/screens/login_screen.dart';
 import 'package:jobs/utility/app_variables.dart';
 import 'package:jobs/utility/constants.dart';
 import 'package:jobs/utility/utility.dart';
@@ -11,6 +10,10 @@ class SignUpScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final SignUpController _signUpController = new SignUpController();
+
+  SignUpScreen({String token}) {
+    _signUpController.resetToken = token;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +40,20 @@ class SignUpScreen extends StatelessWidget {
                     children: [
                       loginPassword(context),
                       Spacer(),
-                      signUpText(
-                          Provider.of<DataProvider>(context, listen: false)
+                      !_signUpController.isReset()
+                          ? signUpText(
+                          Provider
+                              .of<DataProvider>(context, listen: false)
                               .userType,
-                          context),
+                          context) : resetPasswordText(context),
                     ],
                   ),
                 ),
               ),
             ),
-            Provider.of<DataProvider>(context, listen: true).loaderShowing
+            Provider
+                .of<DataProvider>(context, listen: true)
+                .loaderShowing
                 ? defaultLoader(context)
                 : SizedBox()
           ],
@@ -62,7 +69,8 @@ class SignUpScreen extends StatelessWidget {
           key: _formKey,
           child: Column(
             children: [
-              TextFormField(
+              !_signUpController.isReset()
+                  ? TextFormField(
                 decoration: InputDecoration(hintText: name),
                 maxLines: 1,
                 controller: _signUpController.tecName,
@@ -72,22 +80,29 @@ class SignUpScreen extends StatelessWidget {
                   }
                   return null;
                 },
-              ),
+              )
+                  : SizedBox(),
               SizedBox(height: 20),
-              TextFormField(
+              !_signUpController.isReset()
+                  ? TextFormField(
                 decoration: InputDecoration(hintText: email),
                 maxLines: 1,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .subtitle1,
                 controller: _signUpController.tecEmail,
                 validator: (value) {
                   if (value == null ||
                       value.isEmpty ||
-                      !Utility.isValidEmail(_signUpController.tecEmail.text)) {
+                      !Utility.isValidEmail(
+                          _signUpController.tecEmail.text)) {
                     return enterEmail;
                   }
                   return null;
                 },
-              ),
+              )
+                  : SizedBox(),
               SizedBox(height: 20),
               TextFormField(
                 decoration: InputDecoration(hintText: password),
@@ -104,7 +119,10 @@ class SignUpScreen extends StatelessWidget {
               TextFormField(
                 decoration: InputDecoration(hintText: confirmPassword),
                 maxLines: 1,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .subtitle1,
                 controller: _signUpController.tecConfirmPassword,
                 obscureText: true,
                 validator: (value) {
@@ -115,10 +133,14 @@ class SignUpScreen extends StatelessWidget {
                 },
               ),
               SizedBox(height: 20),
-              TextFormField(
+              !_signUpController.isReset()
+                  ? TextFormField(
                 decoration: InputDecoration(hintText: skillsText),
                 maxLines: 1,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .subtitle1,
                 controller: _signUpController.tecSkills,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -126,7 +148,8 @@ class SignUpScreen extends StatelessWidget {
                   }
                   return null;
                 },
-              ),
+              )
+                  : SizedBox(),
             ],
           ),
         ));
@@ -137,11 +160,16 @@ class SignUpScreen extends StatelessWidget {
       onPressed: () {
         print(_formKey.currentState.validate());
         if (_formKey.currentState.validate()) {
-          Provider.of<DataProvider>(context, listen: false).loaderShowing = true;
+          Provider
+              .of<DataProvider>(context, listen: false)
+              .loaderShowing =
+          true;
 
           _signUpController.submitRequest(userRole).then((value) {
-            Provider.of<DataProvider>(context, listen: false).loaderShowing =
-                false;
+            Provider
+                .of<DataProvider>(context, listen: false)
+                .loaderShowing =
+            false;
             if (!value[success]) {
               List<dynamic> errorList = (value.containsKey(errors))
                   ? value[errors]
@@ -163,4 +191,42 @@ class SignUpScreen extends StatelessWidget {
       child: Text(buttonProceed),
     );
   }
+
+  Widget resetPasswordText(BuildContext context) {
+    return ElevatedButton(onPressed: () {
+      print(_formKey.currentState.validate());
+      if (_formKey.currentState.validate()) {
+        Provider
+            .of<DataProvider>(context, listen: false)
+            .loaderShowing =
+        true;
+
+        _signUpController.resetRequest().then((value) {
+          Provider
+              .of<DataProvider>(context, listen: false)
+              .loaderShowing =
+          false;
+
+          if (!value[success]) {
+            List<dynamic> errorList = (value.containsKey(errors))
+                ? value[errors]
+                : [value[message]];
+            String errorString = Utility.parseErrors(errorList);
+            _scaffoldKey.currentState.showSnackBar(
+                Utility.getSnackBar(errorString, isError: true));
+          } else {
+            String id = value[data][email.toLowerCase()];
+            _scaffoldKey.currentState.showSnackBar(
+                Utility.getSnackBar("$passwordResetMsg $id", isError: false));
+            Future.delayed(Duration(seconds: 2), () {
+              Utility.goBack(context);
+            });
+          }
+        });
+      }
+    }, child:Text(buttonReset),
+
+    );
+  }
+
 }

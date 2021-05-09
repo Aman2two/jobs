@@ -39,6 +39,7 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     loginPassword(context),
+                    forgotPassword(context),
                     Spacer(),
                     signUpText(context),
                     submitText(context),
@@ -52,6 +53,26 @@ class LoginScreen extends StatelessWidget {
               : SizedBox()
         ]),
       ),
+    );
+  }
+
+  Widget forgotPassword(BuildContext context) {
+    return ElevatedButton(
+      child: Text("Forgot password"),
+      onPressed: () {
+        _loginController.getResetToken().then((value) {
+          if (!value[success]) {
+            List<dynamic> errorList =
+                (value.containsKey(errors)) ? value[errors] : [value[message]];
+            String errorString = Utility.parseErrors(errorList);
+            _scaffoldKey.currentState
+                .showSnackBar(Utility.getSnackBar(errorString, isError: true));
+          } else {
+            String token=value[data]['token'];
+            Utility.navigateTo(context: context, nextPageName: SignUpScreen(token: token,));
+          }
+        });
+      },
     );
   }
 
