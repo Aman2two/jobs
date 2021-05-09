@@ -45,7 +45,29 @@ class ViewJobCandidates extends StatelessWidget {
   }
 
   Widget jobsListWidget(BuildContext context) {
-    return noDataFound(context);
+    String token = Provider.of<DataProvider>(context, listen: false).user.token;
+    return FutureBuilder(
+      builder: (context, snapShot) {
+        if (snapShot.connectionState == ConnectionState.none &&
+            snapShot.hasData == null) {
+          return noDataFound(context);
+        } else if (snapShot.connectionState == ConnectionState.waiting) {
+          return defaultLoader(context);
+        } else {
+          var value = snapShot.data;
+          if (!value[success]) {
+            List<dynamic> errorList =
+                (value.containsKey(errors)) ? value[errors] : [value[message]];
+            String errorString = Utility.parseErrors(errorList);
+            return noDataFound(context);
+          } else {
+
+            return SizedBox();
+          }
+        }
+      },
+      future: _jobsController.getPostedJobs(token),
+    );
   }
 
   Widget singleJobCard(Job jobObj, BuildContext context) {

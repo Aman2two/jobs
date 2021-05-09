@@ -28,7 +28,7 @@ class ApiHandler {
     try {
       print(data.toString());
       dio.options.headers.addAll(headers);
-      Response response = await dio.get(url, queryParameters: data);
+      Response response = await dio.get(Uri.decodeFull(url), queryParameters: data);
       print(response);
       return response.data;
     } catch (e) {

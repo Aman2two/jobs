@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jobs/controllers/login_controller.dart';
@@ -118,6 +120,9 @@ class LoginScreen extends StatelessWidget {
               _scaffoldKey.currentState.showSnackBar(
                   Utility.getSnackBar(errorString, isError: true));
             } else {
+              Utility.writeToSharedPreferences(keyIsLogin, true);
+              Utility.writeToSharedPreferences(
+                  keyUserData, jsonEncode(value[data]));
               User user = User.fromJson(value[data]);
               Provider.of<DataProvider>(context, listen: false).user = user;
               _scaffoldKey.currentState.showSnackBar(

@@ -1,6 +1,13 @@
+
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:jobs/screens/start_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../main.dart';
 import 'constants.dart';
 
 class Utility {
@@ -48,6 +55,61 @@ class Utility {
       backgroundColor: isError ? Colors.red[800] : Colors.black,
     );
   }
+
+  static writeToSharedPreferences(String key, var value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (value is bool) {
+      prefs.setBool(key, value);
+    } else {
+      prefs.setString(key, value);
+    }
+  }
+
+  static Future<Object> readValueFromSharedPreferences(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.get(key);
+  }
+
+  static Future<void> clearSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
+
+   static exitFromApp(){
+     if (!Platform.isIOS) {
+       SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+     } else {
+       exit(0);
+     }
+   }
+
+   static Future<void>logoutFromApp(BuildContext context) async{
+    await clearSharedPreferences();
+    Future.delayed(Duration(milliseconds: 500),(){
+      navigateTo(context: context, nextPageName: MyApp());
+    });
+
+   }
+
+
+}
+
+Widget dialogWithMessage({String text}){
+
+  Widget okButton = FlatButton(
+    child: Text(keyOk),
+    onPressed: () {
+      Utility.exitFromApp();
+    },
+  );
+
+
+  return AlertDialog(
+    content: Text(text),
+    actions: [
+      okButton,
+    ]
+  );
 }
 
 Widget defaultLoader(BuildContext context) {

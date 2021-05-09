@@ -13,7 +13,7 @@ const String verifyPasswordToken="auth/resetpassword/";
 const String getOneJobDetails="jobs/";
 const String getAllJobs="jobs";
 const String getAlreadyAppliedJobs="candidates/jobs/applied";
-const String getPostedJobs="recruiters/jobs";
+const String getPostedJobsUrl="recruiters/jobs";
 const String getOneJobCanditates="recruiters/jobs/";
 
 
@@ -51,6 +51,11 @@ const String createJobSuccess= 'Job Created Successfully';
 const String dashboardScreenHeader= 'Dashboard';
 const String createJob= 'Create Job';
 const String searchJobsHeader= 'Search Job';
+const String keyUserData= 'key_user_data';
+const String keyIsLogin= 'key_is_user_login';
+const String keyOk= 'Ok';
+const String keyCancel= 'Cancel';
+const String exitMessage= "Are you sure want to exit?";
 
 // asset paths
 

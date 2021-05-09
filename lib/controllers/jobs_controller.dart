@@ -18,7 +18,7 @@ class JobsController {
   }
 
   Future<Map> getPostedJobs(String token) async {
-    return await ApiHandler.callGetApi(url: "$baseUrl$getPostedJobs", headers: {
+    return await ApiHandler.callGetApi(url: "$baseUrl$getPostedJobsUrl", headers: {
       'Authorization': token.trim()
     });
   }

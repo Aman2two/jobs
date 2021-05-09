@@ -12,32 +12,50 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String username = Provider.of<DataProvider>(context).user.name;
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(dashboardScreenHeader),
-      ),
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(dashboardBg), fit: BoxFit.fitWidth),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                userLayout(context),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [addJob(context), viewJobCandidates(context)],
-                )
-              ],
-            ),
+        actions: [
+          InkWell(child: Padding(padding: EdgeInsets.only(right: 10.0),
+          child:Icon(Icons.logout)),
+          onTap: (){
+            Utility.logoutFromApp(context);
+          },
           )
+
         ],
+      ),
+      body: WillPopScope(
+        onWillPop: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return dialogWithMessage(text: exitMessage);
+              });
+          return null;
+        },
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(dashboardBg), fit: BoxFit.fitWidth),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  userLayout(context),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [addJob(context), viewJobCandidates(context)],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
