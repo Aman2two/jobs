@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:jobs/screens/login_screen.dart';
 import 'package:jobs/screens/start_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -86,7 +87,7 @@ class Utility {
    static Future<void>logoutFromApp(BuildContext context) async{
     await clearSharedPreferences();
     Future.delayed(Duration(milliseconds: 500),(){
-      navigateTo(context: context, nextPageName: MyApp());
+      navigateTo(context: context, nextPageName: LoginScreen());
     });
 
    }

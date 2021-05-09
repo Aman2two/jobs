@@ -8,7 +8,7 @@ const String register="auth/register";
 const String resetPassword="auth/resetpassword";
 const String jobs="jobs/";
 const String applyToJobs="candidates/jobs";
-const String getResetPwdToken="/auth/resetpassword?email=";
+const String getResetPwdToken="/auth/resetpassword";
 const String verifyPasswordToken="auth/resetpassword/";
 const String getOneJobDetails="jobs/";
 const String getAllJobs="jobs";
