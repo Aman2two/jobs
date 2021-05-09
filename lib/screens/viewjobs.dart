@@ -85,23 +85,26 @@ class ViewJobCandidates extends StatelessWidget {
       margin: EdgeInsets.all(10.0),
       elevation: 4.0,
       child: Padding(
-        padding:  EdgeInsets.all(5.0),
-        child: Column(children: [
-          Text(
-            jobObj.title,
-            style: Theme.of(context).textTheme.headline6,
-          ),
-          SizedBox(height: 5.0),
-          Text(
-            jobObj.description,
-            style: Theme.of(context).textTheme.subtitle2,
-          ),
-          SizedBox(height: 5.0),
-          Text(
-            " Location: ${jobObj.location}",
-            style: Theme.of(context).textTheme.subtitle2,
-          ),
-        ]),
+        padding: EdgeInsets.all(5.0),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                jobObj.title,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              SizedBox(height: 5.0),
+              Text(
+                " Location: ${jobObj.location}",
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+              SizedBox(height: 5.0),
+              Text(
+                jobObj.description,
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+            ]),
       ),
     );
   }
