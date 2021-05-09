@@ -31,6 +31,6 @@ class SignUpController{
     });
   }
 
-  bool isReset()=> resetToken.isNotEmpty;
+  bool isReset()=> resetToken!=null&&resetToken.isNotEmpty;
 
 }
