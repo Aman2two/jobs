@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -76,27 +75,23 @@ class Utility {
     prefs.clear();
   }
 
-   static exitFromApp(){
-     if (!Platform.isIOS) {
-       SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-     } else {
-       exit(0);
-     }
-   }
+  static exitFromApp() {
+    if (!Platform.isIOS) {
+      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    } else {
+      exit(0);
+    }
+  }
 
-   static Future<void>logoutFromApp(BuildContext context) async{
+  static Future<void> logoutFromApp(BuildContext context) async {
     await clearSharedPreferences();
-    Future.delayed(Duration(milliseconds: 500),(){
-      navigateTo(context: context, nextPageName: LoginScreen());
+    Future.delayed(Duration(milliseconds: 500), () {
+      navigateTo(context: context, nextPageName: LoginScreen(), replace: true);
     });
-
-   }
-
-
+  }
 }
 
-Widget dialogWithMessage({String text}){
-
+Widget dialogWithMessage({String text}) {
   Widget okButton = FlatButton(
     child: Text(keyOk),
     onPressed: () {
@@ -104,13 +99,9 @@ Widget dialogWithMessage({String text}){
     },
   );
 
-
-  return AlertDialog(
-    content: Text(text),
-    actions: [
-      okButton,
-    ]
-  );
+  return AlertDialog(content: Text(text), actions: [
+    okButton,
+  ]);
 }
 
 Widget defaultLoader(BuildContext context) {

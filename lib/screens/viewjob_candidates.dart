@@ -46,6 +46,8 @@ class ViewJobCandidates extends StatelessWidget {
 
   Widget jobsListWidget(BuildContext context) {
     String token = Provider.of<DataProvider>(context, listen: false).user.token;
+    int userRole =
+        Provider.of<DataProvider>(context, listen: false).user.userRole;
     return FutureBuilder(
       builder: (context, snapShot) {
         if (snapShot.connectionState == ConnectionState.none &&
@@ -61,12 +63,13 @@ class ViewJobCandidates extends StatelessWidget {
             String errorString = Utility.parseErrors(errorList);
             return noDataFound(context);
           } else {
-
             return SizedBox();
           }
         }
       },
-      future: _jobsController.getPostedJobs(token),
+      future: userRole == 1
+          ? _jobsController.getPostedJobs(token)
+          : _jobsController.getAvailableJobs(token),
     );
   }
 

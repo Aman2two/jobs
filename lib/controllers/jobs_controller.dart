@@ -23,5 +23,11 @@ class JobsController {
     });
   }
 
+  Future<Map> getAvailableJobs(String token) async {
+    return await ApiHandler.callGetApi(url: "$baseUrl$applyToJobs", headers: {
+      'Authorization': token.trim()
+    });
+  }
+
 
 }

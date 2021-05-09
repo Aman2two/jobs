@@ -48,10 +48,21 @@ class DashboardScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   userLayout(context),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [addJob(context), viewJobCandidates(context)],
-                  )
+                  Provider.of<DataProvider>(context).user.userRole == 1
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            addJob(context),
+                            viewJobCandidates(context)
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            viewJobs(context),
+                            // viewJobCandidates(context)
+                          ],
+                        )
                 ],
               ),
             )
@@ -101,6 +112,15 @@ class DashboardScreen extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  Widget viewJobs(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        Utility.navigateTo(context: context, nextPageName: ViewJobCandidates());
+      },
+      child: Text('View Available Jobs'),
+    );
   }
 
   Widget addJob(BuildContext context) {
